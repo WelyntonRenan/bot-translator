@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4"><%= title %></h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Canais</h2>
+                <ul class="list-group" id="channels">
+                    <% for (const [channelId, config] of Object.entries(channels)) { %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" id="channel-<%= channelId %>">
+                            <div>
+                                <strong>Canal:</strong> <%= config.name %> (ID: <%= channelId %>)<br>
+                                <strong>Idioma:</strong> <%= config.language %><br>
+                                <strong>Voice ID:</strong> <%= config.voice_id %><br>
+                                <strong>Link do Tutorial:</strong> <%= config.tutorial_link %><br>
+                                <strong>Link de Criação de Conta:</strong> <%= config.account_creation_link %><br>
+                                <strong>Usuário de Suporte:</strong> <%= config.support_user %>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-sm" onclick="editChannel('<%= channelId %>', '<%= config.language %>', '<%= config.voice_id %>', '<%= config.tutorial_link %>', '<%= config.account_creation_link %>', '<%= config.support_user %>')">Editar</button>
+                                <button class="btn btn-danger btn-sm" onclick="removeChannel('<%= channelId %>')">Remover</button>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Adicionar/Editar Canal</h2>
+                <form id="addEditChannelForm">
+                    <input type="hidden" id="isEditing" name="isEditing" value="false">
+                    <div class="form-group">
+                        <label for="channelId">Channel ID:</label>
+                        <input type="text" class="form-control" id="channelId" name="channelId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Language:</label>
+                        <input type="text" class="form-control" id="language" name="language" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="voice_id">Voice ID:</label>
+                        <input type="text" class="form-control" id="voice_id" name="voice_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tutorial_link">Link do Tutorial:</label>
+                        <input type="text" class="form-control" id="tutorial_link" name="tutorial_link" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="account_creation_link">Link de Criação de Conta:</label>
+                        <input type="text" class="form-control" id="account_creation_link" name="account_creation_link" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="support_user">Usuário de Suporte:</label>
+                        <input type="text" class="form-control" id="support_user" name="support_user" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2>Editar Grupo Mestre</h2>
+                <form id="editMasterGroupForm">
+                    <div class="form-group">
+                        <label for="master_language">Language:</label>
+                        <input type="text" class="form-control" id="master_language" name="master_language" value="<%= masterGroup.language %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="master_voice_id">Voice ID:</label>
+                        <input type="text" class="form-control" id="master_voice_id" name="master_voice_id" value="<%= masterGroup.voice_id %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="master_tutorial_link">Link do Tutorial:</label>
+                        <input type="text" class="form-control" id="master_tutorial_link" name="master_tutorial_link" value="<%= masterGroup.tutorial_link %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="master_account_creation_link">Link de Criação de Conta:</label>
+                        <input type="text" class="form-control" id="master_account_creation_link" name="master_account_creation_link" value="<%= masterGroup.account_creation_link %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="master_support_user">Usuário de Suporte:</label>
+                        <input type="text" class="form-control" id="master_support_user" name="master_support_user" value="<%= masterGroup.support_user %>" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
